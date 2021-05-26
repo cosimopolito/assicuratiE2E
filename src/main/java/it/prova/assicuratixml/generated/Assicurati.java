@@ -1,12 +1,12 @@
 //
-// Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
+// Questo file ï¿½ stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+// Qualsiasi modifica a questo file andrï¿½ persa durante la ricompilazione dello schema di origine. 
 // Generato il: 2021.05.26 alle 04:24:56 PM CEST 
 //
 
 
-package generated;
+package it.prova.assicuratixml.generated;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,7 +136,7 @@ public class Assicurati {
         protected String codicefiscale;
 
         /**
-         * Recupera il valore della proprietà nome.
+         * Recupera il valore della proprietï¿½ nome.
          * 
          * @return
          *     possible object is
@@ -148,7 +148,7 @@ public class Assicurati {
         }
 
         /**
-         * Imposta il valore della proprietà nome.
+         * Imposta il valore della proprietï¿½ nome.
          * 
          * @param value
          *     allowed object is
@@ -160,7 +160,7 @@ public class Assicurati {
         }
 
         /**
-         * Recupera il valore della proprietà cognome.
+         * Recupera il valore della proprietï¿½ cognome.
          * 
          * @return
          *     possible object is
@@ -172,7 +172,7 @@ public class Assicurati {
         }
 
         /**
-         * Imposta il valore della proprietà cognome.
+         * Imposta il valore della proprietï¿½ cognome.
          * 
          * @param value
          *     allowed object is
@@ -184,7 +184,7 @@ public class Assicurati {
         }
 
         /**
-         * Recupera il valore della proprietà datanascita.
+         * Recupera il valore della proprietï¿½ datanascita.
          * 
          * @return
          *     possible object is
@@ -196,7 +196,7 @@ public class Assicurati {
         }
 
         /**
-         * Imposta il valore della proprietà datanascita.
+         * Imposta il valore della proprietï¿½ datanascita.
          * 
          * @param value
          *     allowed object is
@@ -208,7 +208,7 @@ public class Assicurati {
         }
 
         /**
-         * Recupera il valore della proprietà nuovisinistri.
+         * Recupera il valore della proprietï¿½ nuovisinistri.
          * 
          */
         public float getNuovisinistri() {
@@ -216,7 +216,7 @@ public class Assicurati {
         }
 
         /**
-         * Imposta il valore della proprietà nuovisinistri.
+         * Imposta il valore della proprietï¿½ nuovisinistri.
          * 
          */
         public void setNuovisinistri(float value) {
@@ -224,7 +224,7 @@ public class Assicurati {
         }
 
         /**
-         * Recupera il valore della proprietà codicefiscale.
+         * Recupera il valore della proprietï¿½ codicefiscale.
          * 
          * @return
          *     possible object is
@@ -236,7 +236,7 @@ public class Assicurati {
         }
 
         /**
-         * Imposta il valore della proprietà codicefiscale.
+         * Imposta il valore della proprietï¿½ codicefiscale.
          * 
          * @param value
          *     allowed object is
@@ -247,6 +247,16 @@ public class Assicurati {
             this.codicefiscale = value;
         }
 
+        @Override
+        public String toString() {
+            return "Assicurato{" +
+                    "nome='" + nome + '\'' +
+                    ", cognome='" + cognome + '\'' +
+                    ", datanascita=" + datanascita +
+                    ", nuovisinistri=" + nuovisinistri +
+                    ", codicefiscale='" + codicefiscale + '\'' +
+                    '}';
+        }
     }
 
 }

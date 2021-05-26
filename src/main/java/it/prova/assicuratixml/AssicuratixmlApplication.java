@@ -10,4 +10,5 @@ public class AssicuratixmlApplication {
         SpringApplication.run(AssicuratixmlApplication.class, args);
     }
 
+
 }
