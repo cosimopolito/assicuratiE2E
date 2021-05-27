@@ -55,11 +55,16 @@ public class AssicuratoController {
                 Assicurato assicurato = null;
                 if ((assicurato = assicuratoService.findByCodiceFiscaleAndNomeAndCognomeAndDataNascita(item.getCodiceFiscale(),item.getNome(),item.getCognome(),item.getDataNascita())  ) == null){
                     assicuratoService.inserisciNuovo(item);
-                }
+                 }
                 else  {
-                    assicuratoService.aggiorna(assicurato);
+                    item.setId(assicurato.getId());
+                    assicuratoService.aggiorna(item);
                 }
             }
+
+            for (Assicurato item:listAssicuratiModel){
+
+             }
 
         } catch (Exception e) {
             e.printStackTrace();
