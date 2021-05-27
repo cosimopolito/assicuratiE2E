@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.util.ArrayList;
@@ -62,9 +63,17 @@ public class AssicuratoController {
                 }
             }
 
-            for (Assicurato item:listAssicuratiModel){
+            List<Assicurati.Assicurato> assicuratiScartati = new ArrayList<>();
 
+            for (Assicurati.Assicurato item:listAssicuratiPojo){
+                if (item.getNuovisinistri() > 10){
+                    assicuratiScartati.add(item);
+                }
              }
+            Marshaller marshaller =  jContext.createMarshaller();
+            Assicurati  assicuratiJAXB = new Assicurati ();
+            assicuratiJAXB.setAssicurato(listAssicuratiPojo);
+            marshaller.marshal(assicuratiJAXB,new File("scarti.xml"));
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -61,6 +61,10 @@ public class Assicurati {
 
     protected List<Assicurati.Assicurato> assicurato;
 
+    public void setAssicurato(List<Assicurato> assicurato) {
+        this.assicurato = assicurato;
+    }
+
     /**
      * Gets the value of the assicurato property.
      * 
