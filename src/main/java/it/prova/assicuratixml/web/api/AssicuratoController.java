@@ -3,21 +3,16 @@ package it.prova.assicuratixml.web.api;
 import it.prova.assicuratixml.generated.Assicurati;
 import it.prova.assicuratixml.model.Assicurato;
 import it.prova.assicuratixml.service.AssicuratoService;
+import it.prova.assicuratixml.utlity.ConvertionUtlity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -41,39 +36,39 @@ public class AssicuratoController {
             Assicurati assicurati = (Assicurati) unmarshallerObj.unmarshal(file);
             List<Assicurati.Assicurato> listAssicuratiPojo = assicurati.getAssicurato();
             List<Assicurato> listAssicuratiModel = new ArrayList<>();
-            for (Assicurati.Assicurato item : listAssicuratiPojo) {
 
-                Assicurato assicuratoModel = new Assicurato();
-                assicuratoModel.setNuoviSinistri(item.getNuovisinistri());
-                assicuratoModel.setCodiceFiscale(item.getCodicefiscale());
-                assicuratoModel.setDataNascita(item.getDatanascita().toGregorianCalendar().getTime());
-                assicuratoModel.setCognome(item.getCognome());
-                assicuratoModel.setNome(item.getNome());
-                listAssicuratiModel.add(assicuratoModel);
-            }
 
-            for (Assicurato item:listAssicuratiModel ) {
-                Assicurato assicurato = null;
-                if ((assicurato = assicuratoService.findByCodiceFiscaleAndNomeAndCognomeAndDataNascita(item.getCodiceFiscale(),item.getNome(),item.getCognome(),item.getDataNascita())  ) == null){
-                    assicuratoService.inserisciNuovo(item);
-                 }
-                else  {
-                    item.setId(assicurato.getId());
-                    assicuratoService.aggiorna(item);
-                }
-            }
-
+            List<Assicurato> assicuratiProcessati = new ArrayList<>();
             List<Assicurati.Assicurato> assicuratiScartati = new ArrayList<>();
 
-            for (Assicurati.Assicurato item:listAssicuratiPojo){
-                if (item.getNuovisinistri() > 10){
-                    assicuratiScartati.add(item);
+
+                    List<Assicurato> assicuratiModel=  ConvertionUtlity.convertListPojoToModel(listAssicuratiPojo);
+
+
+            for (Assicurato modelItem : assicuratiModel) {
+                if (modelItem.getNuoviSinistri() < 10) {
+                    Assicurato assicuratoModelDB = null;
+                    if ((assicuratoModelDB = assicuratoService.findByCodiceFiscaleAndNomeAndCognomeAndDataNascita(modelItem.getCodiceFiscale(), modelItem.getNome(), modelItem.getCognome(), modelItem.getDataNascita())) == null) {
+                        assicuratoService.inserisciNuovo(modelItem);
+                    } else {
+                        modelItem.setId(assicuratoModelDB.getId());
+                        Assicurato assicuratoAggiornato = assicuratoService.aggiorna(modelItem);
+                    }
+
+                    assicuratiProcessati.add(modelItem);
+
+                } else {
+                    assicuratiScartati.add(ConvertionUtlity.convertModelToPojo(modelItem));
                 }
-             }
-            Marshaller marshaller =  jContext.createMarshaller();
-            Assicurati  assicuratiJAXB = new Assicurati ();
-            assicuratiJAXB.setAssicurato(listAssicuratiPojo);
-            marshaller.marshal(assicuratiJAXB,new File("scarti.xml"));
+            }
+
+            if (!assicuratiProcessati.isEmpty()){
+                List<Assicurati.Assicurato> listPojo =ConvertionUtlity.convertListModelToPojo(assicuratiProcessati);
+                ConvertionUtlity.convertToXml(listPojo, new File("processati.xml"));
+            }
+            if (!assicuratiScartati.isEmpty()) {
+                ConvertionUtlity.convertToXml(assicuratiScartati, new File("scartati.xml"));
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,5 +76,6 @@ public class AssicuratoController {
 
         // return new ResponseEntity<>(utenteService.trovaTavoloGiocatore(userInSessione), HttpStatus.OK);
     }
+
 
 }
