@@ -1,0 +1,18 @@
+<assicurati>
+	<assicurato>
+		<nome> cosimo </nome>
+		<cognome> polito </cognome>
+		<datanascita> 1993-10-31 </datanascita>
+		<nuovisinistri> 10000 </nuovisinistri>
+		<codicefiscale>PLTCMP93R31H926N</codicefiscale>
+	</assicurato>
+ 
+	<assicurato>
+		<nome> giacomo </nome>
+		<cognome> di biagio </cognome>
+		<datanascita>1988-05-05 </datanascita>
+		<nuovisinistri> 3 </nuovisinistri>
+		<codicefiscale>DBGGCM88E07D612T</codicefiscale>
+	</assicurato>
+
+</assicurati>
